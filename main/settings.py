@@ -135,7 +135,6 @@ USE_TZ = True
 VENV_PATH = os.path.dirname(BASE_DIR)
 STATIC_ROOT = BASE_DIR / 'static_root'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = BASE_DIR / 'static_in_env'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media_root'
 
