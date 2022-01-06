@@ -47,7 +47,7 @@ class Author(models.Model):
 
     user = models.OneToOneField(
         User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField()
+    profile_picture = models.ImageField(default='avatar.jpg')
 
     # class Meta:
     #     verbose_name = _("Author")

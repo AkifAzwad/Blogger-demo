@@ -3,6 +3,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from . import models, forms
 from marketing.models import Signup
+from django.views.generic import View, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def search(request):
@@ -24,7 +26,9 @@ def get_author(user):
     qs = models.Author.objects.filter(user=user)
     if qs.exists():
         return qs[0]
-    return None
+    else:
+        x = models.Author.objects.create(user=user)
+        return x
 
 
 def get_category_count():
@@ -102,26 +106,26 @@ def post(request, id):
     })
 
 
-
-def post_create(request):
-    title = 'Create'
-    form = forms.PostForm(request.POST or None, request.FILES or None)
+class PostCreateView(CreateView, LoginRequiredMixin):
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
     
-    if request.method == "POST":
-        if form.is_valid():
-           
-            # author=models.Author.objects.get_or_create(user=request.user)
-            author=models.Author.objects.filter(user=request.user)[0]
-            form.instance.author = author
-            form.save()
-            return redirect(reverse("post-detail", kwargs={
-                'id': form.instance.id
-            }))
-    context = {
-        'title': title,
-        'form': form
-    }
-    return render(request, "post_create.html", context)
+    model = models.Post
+    template_name = 'post_create.html'
+    form_class = forms.PostForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Create'
+        return context
+
+    def form_valid(self, form):
+        form.instance.author = get_author(self.request.user)
+        return super().form_valid(form)
+        # form.save()
+        # return redirect(reverse("post-detail", kwargs={
+        #     'pk': form.instance.pk
+        # }))
 
 
 def post_update(request, id):
