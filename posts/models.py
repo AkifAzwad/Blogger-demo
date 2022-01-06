@@ -56,8 +56,8 @@ class Author(models.Model):
     def __str__(self):
         return self.user.username
 
-    def get_absolute_url(self):
-        return reverse("Author_detail", kwargs={"pk": self.pk})
+    # def get_absolute_url(self):
+    #     return reverse("Author_detail", kwargs={"pk": self.pk})
 
 
 class Category(models.Model):
@@ -71,8 +71,8 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        return reverse("Category_detail", kwargs={"pk": self.pk})
+    # def get_absolute_url(self):
+    #     return reverse("Category_detail", kwargs={"pk": self.pk})
 
 
 class Post(models.Model):

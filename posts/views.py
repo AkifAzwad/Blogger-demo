@@ -28,9 +28,10 @@ def get_author(user):
 
 
 def get_category_count():
-    queryset = models.Post.objects.values('categories__title').annotate(
-        Count('categories__title')
-    )
+    queryset = models.Post\
+        .objects.values('categories__title')\
+        .annotate(Count('categories__title')
+                  )
     return queryset
 
 
@@ -82,8 +83,8 @@ def post(request, id):
     form = forms.CommentForm(request.POST or None)
 
     if request.user.is_authenticated:
-        models.PostView.objects.get_or_create(user=request.user,post=post)
-    
+        models.PostView.objects.get_or_create(user=request.user, post=post)
+
     if request.method == 'POST':
         if form.is_valid():
             form.instance.user = request.user
@@ -101,22 +102,26 @@ def post(request, id):
     })
 
 
+
 def post_create(request):
     title = 'Create'
     form = forms.PostForm(request.POST or None, request.FILES or None)
-    author = get_author(request.user)
-    if request.method == 'POST':
+    
+    if request.method == "POST":
         if form.is_valid():
+           
+            # author=models.Author.objects.get_or_create(user=request.user)
+            author=models.Author.objects.filter(user=request.user)[0]
             form.instance.author = author
             form.save()
-            return redirect(reverse('post-detail', kwargs={
+            return redirect(reverse("post-detail", kwargs={
                 'id': form.instance.id
             }))
-
-    return render(request, "post_create.html", context={
-        'form': form,
+    context = {
         'title': title,
-    })
+        'form': form
+    }
+    return render(request, "post_create.html", context)
 
 
 def post_update(request, id):

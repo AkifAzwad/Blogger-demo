@@ -26,6 +26,7 @@
               {%endfor%}
             </div>
             <div>
+              {% if request.user == post.author.user %}
               <a href="{% url 'post-update' id=post.id %}">
                 <button type="button" class="btn btn-info">
                   Update
@@ -36,6 +37,7 @@
                   Delete
                 </button>
               </a>
+              {% endif %}
             </div>
             <h1>{{post.title}}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
             <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#"
@@ -117,7 +119,8 @@
               </form>
             </div>
             {% else %}
-            <a href='{% url 'account_login' %}' type="submit" class="btn btn-primary">Login to comment</a href='{% url 'account_login' %}'>
+            <a href='{% url 'account_login' %}' type="submit" class="btn btn-primary">Login to comment</a
+              href='{% url 'account_login' %}'>
             {%endif%}
           </div>
         </div>
