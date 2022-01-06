@@ -35,7 +35,7 @@
 
           <li class="nav-item"><a href="#" class="nav-link ">Contact</a>
           </li>
-          {%if request.user.is_staff%}
+          {%if request.user.is_authenticated%}
           <li class="nav-item"><a href="{% url 'post-create' %}" class="nav-link ">Create</a>
           </li>
           <li class="nav-item"><a href="{% url 'account_logout' %}" class="nav-link ">Logout</a>
