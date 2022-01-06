@@ -15,7 +15,7 @@ idna==3.3
 jsmin==3.0.0
 oauthlib==3.1.1
 Pillow==8.4.0
-psycopg2==2.9.3
+psycopg2==2.8.6
 pycodestyle==2.8.0
 pycparser==2.21
 PyJWT==2.3.0
