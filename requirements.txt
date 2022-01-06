@@ -6,7 +6,7 @@ cffi==1.15.0
 charset-normalizer==2.0.9
 cryptography==36.0.1
 defusedxml==0.7.1
-Django==4.0
+Django==3.0
 django-allauth==0.47.0
 django-crispy-forms==1.13.0
 django-tinymce4-lite==1.8.0
