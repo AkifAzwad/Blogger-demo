@@ -78,6 +78,31 @@ def blog(request):
         'page_request_var': page_request_var,
         "category_count": category_count,
     })
+    
+def person(request):
+    category_count = get_category_count()
+
+    most_recent = models.Post.objects.order_by('-timestamp')[:3]
+    author=get_author(request.user)
+    post_list = models.Post.objects.filter(author=author)
+    paginator = Paginator(post_list, 4)
+
+    page_request_var = 'page'
+    page = request.GET.get(page_request_var)
+
+    try:
+        paginated_queryset = paginator.page(page)
+    except PageNotAnInteger:
+        paginated_queryset = paginator.page(1)
+    except EmptyPage:
+        paginated_queryset = paginator.page(paginator.num_pages)
+
+    return render(request, 'profile.html', {
+        'queryset': paginated_queryset,
+        'most_recent': most_recent,
+        'page_request_var': page_request_var,
+        "category_count": category_count,
+    })
 
 
 def post(request, id):

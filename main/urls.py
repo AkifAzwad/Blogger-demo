@@ -25,6 +25,7 @@ urlpatterns = [
     path('', views.index, name='home'),
 
     path('search/', views.search, name='search'),
+    path('person/', views.person, name='person'),
     path('blog/', views.blog, name='post-list'),
     path('post/<id>/', views.post, name='post-detail'),
     path('create/', views.PostCreateView.as_view(), name='post-create'),
