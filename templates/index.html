@@ -54,9 +54,9 @@
             </header>
             <p>{{ obj.overview|linebreaks|truncatechars:200 }}</p>
             <footer class="post-footer d-flex align-items-center">
-              <a href="#"
-                class="author d-flex align-items-center flex-wrap">
-                <div class="avatar"><img src="{{ obj.author.profile_picture.url }}" alt="Profile Picture" class="img-fluid"></div>
+              <a href="#" class="author d-flex align-items-center flex-wrap">
+                <div class="avatar"><img src="{{ obj.author.profile_picture.url }}" alt="Profile Picture"
+                    class="img-fluid"></div>
                 <div class="title"><span>{{ obj.author }}</span></div>
               </a>
               <div class="date"><i class="icon-clock"></i> {{ obj.timestamp|timesince }} ago</div>
@@ -94,23 +94,26 @@
     </header>
     <div class="row">
       {% for obj in latest %}
-      <div class="post col-md-4">
-        <div class="post-thumbnail"><a href="{%url 'post-detail' id=obj.pk %}"><img src="{{ obj.thumbnail.url }}" alt="..." class="img-fluid"></a>
+      <a href="{%url 'post-detail' id=obj.pk %}">
+        <div class="post col-md-4">
+          <div class="post-thumbnail"><a href="{%url 'post-detail' id=obj.pk %}"><img src="{{ obj.thumbnail.url }}"
+                alt="..." class="img-fluid"></a>
+          </div>
+          <div class="post-details">
+            <div class="post-meta d-flex justify-content-between">
+              <div class="date">{{ obj.timestamp }}</div>
+              <div class="category">
+                {% for cat in obj.categories.all %}
+                <a href="#">{{ cat }}</a>
+                {% endfor %}
+              </div>
+            </div><a href="#">
+              <h3 class="h4">{{ obj.title }}</h3>
+            </a>
+            <p class="text-muted">{{ obj.overview|linebreaks|truncatechars:200 }}</p>
+          </div>
         </div>
-        <div class="post-details">
-          <div class="post-meta d-flex justify-content-between">
-            <div class="date">{{ obj.timestamp }}</div>
-            <div class="category">
-              {% for cat in obj.categories.all %}
-              <a href="#">{{ cat }}</a>
-              {% endfor %}
-            </div>
-          </div><a href="#">
-            <h3 class="h4">{{ obj.title }}</h3>
-          </a>
-          <p class="text-muted">{{ obj.overview|linebreaks|truncatechars:200 }}</p>
-        </div>
-      </div>
+      </a>
       {% endfor %}
     </div>
   </div>
@@ -121,7 +124,7 @@
     <div class="row">
       <div class="col-md-6">
         <h2>Subscribe to Newsletter</h2>
-        
+
       </div>
       <div class="col-md-8">
         <div class="form-holder">
